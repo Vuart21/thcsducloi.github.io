@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> (AI) PHÂN LOẠI RÁC Ở TRƯỜNG HỌC </title>
+    <title> (AI) NHẬN BIẾT VÀ PHÂN LOẠI RÁC Ở TRƯỜNG HỌC </title>
     <style>
         body {
             background-color: #a8d5ba; /* Green background */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             height: 100vh;
             font-family: Arial, sans-serif;
             background-image: url('Resources/pngtree-beautiful-hand-painted-green-garbage-collection-illustration-background-image_945238.jpg');
@@ -48,13 +47,18 @@
         .text {
         font-size: 30px;
         }
+        .image {
+            float: right;
+            padding-left: 100px;
+        }
     </style>
 </head>
 <body>
-    <h1 id="header">(AI) PHÂN LOẠI RÁC Ở TRƯỜNG HỌC </h1>
+    <h1 id="header">(AI) NHẬN BIẾT VÀ PHÂN LOẠI RÁC Ở TRƯỜNG HỌC </h1>
     <button id="start" onclick="init()">Start</button>
     <video id="video" autoplay></video>
     <div id="webcam-container"></div>
+    <img class="image" src="Resources/thcsducloi.jpg">
     <div class="text" id="label-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
