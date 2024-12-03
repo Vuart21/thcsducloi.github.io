@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> (AI) NHẬN BIẾT VÀ PHÂN LOẠI RÁC Ở TRƯỜNG HỌC  </title>
+    <title>AI Nhận Biết Rác</title>
     <style>
         body {
             background-color: #a8d5ba; /* Green background */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
             background-image: url('Resources/pngtree-beautiful-hand-painted-green-garbage-collection-illustration-background-image_945238.jpg');
             background-repeat: no-repeat;
             background-size: cover;
         }
-        h1 {
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .header {
             font-size: 2.5rem;
             color: #333;
             margin-bottom: 20px; /* Space between text and button */
@@ -47,19 +50,37 @@
         .text {
         font-size: 30px;
         }
-        .image {
-            float: right;
-            padding-left: 100px;
+        #logo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            width: 200px;
         }
+
+        @media (max-width: 450px) {
+    .header {
+        font-size: 25px;
+        padding-top: 40px;
+    }
+}
     </style>
 </head>
 <body>
-    <h1 id="header">(AI) NHẬN BIẾT VÀ PHÂN LOẠI RÁC Ở TRƯỜNG HỌC </h1>
+    <div class="container">
+        <h1 id="header" class = "header"> ( AI ) NHẬN BIẾT VÀ PHÂN LOẠI RÁC Ở TRƯỜNG HỌC</h1>
     <button id="start" onclick="init()">Start</button>
+    <button id="swap" style="display:none;" onclick="swapCamera()">Swap Camera</button>
     <video id="video" autoplay></video>
     <div id="webcam-container"></div>
-    <img class="image" src="Resources/thcsducloi.jpg">
-    <div class="text" id="label-container"></div>
+    <div id = "label-container" class="text"></div>
+    </div>
+    <audio style="position: absolute; top: 0;" controls autoplay>
+        <source src="Resources/y2meta.net_320kbps-mau-xanh-noo-phuoc-thinh-and-team-the-voice-kids-official-mv.mp3" type="audio/ogg">
+      Your browser does not support the audio element.
+      </audio>
+    <img id="logo" src="Resources/z6090309494458_3f5b7aa394bd0284b063d406aa232639.jpg">
+    
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
@@ -67,15 +88,17 @@
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
     
         // Thay đổi đường link dưới đây
-        const URL = "https://teachablemachine.withgoogle.com/models/8N58Fq1kU/";
+        const URL = "https://teachablemachine.withgoogle.com/models/Ono56loZ1/";
 
         const startButton = document.getElementById('start');
         const video = document.getElementById('video');
         const header = document.getElementById('header'); // Add this line
+        const logo = document.getElementById('logo')
 
         startButton.addEventListener('click', async () => {
             startButton.style.display = 'none'; // Hide the start button
             header.style.display = 'none'; // Hide the header
+
         });
 
         async function init() {
