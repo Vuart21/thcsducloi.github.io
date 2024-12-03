@@ -1,0 +1,60 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #eaeaea;
+    font-family: 'Arial', sans-serif;
+    background-image: url('Resources/pngtree-beautiful-hand-painted-green-garbage-collection-illustration-background-image_945238.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.text {
+    font-size: 30px;
+}
+
+.button {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 24px;
+    color: black;
+    background-color: lightgray;
+    border: 2px solid #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.button:hover {
+    background-color: gray;
+    transform: scale(1.05);
+}
+
+#video {
+    width: 640px;
+    height: 480px;
+    border: 1px solid #ccc;
+    display: none;
+}
+#start {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+

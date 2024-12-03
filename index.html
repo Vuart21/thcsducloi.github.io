@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> (AI) PHÂN LOẠI RÁC Ở TRƯỜNG HỌC </title>
+    <style>
+        body {
+            background-color: #a8d5ba; /* Green background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-image: url('Resources/pngtree-beautiful-hand-painted-green-garbage-collection-illustration-background-image_945238.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px; /* Space between text and button */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #f0f0f0; /* Change color on hover */
+        }
+        #video {
+            width: 640px;
+            height: 480px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+        #start {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .text {
+        font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="header">(AI) PHÂN LOẠI RÁC Ở TRƯỜNG HỌC </h1>
+    <button id="start" onclick="init()">Start</button>
+    <video id="video" autoplay></video>
+    <div id="webcam-container"></div>
+    <div class="text" id="label-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+    
+        // Thay đổi đường link dưới đây
+        const URL = "https://teachablemachine.withgoogle.com/models/8N58Fq1kU/";
+
+        const startButton = document.getElementById('start');
+        const video = document.getElementById('video');
+        const header = document.getElementById('header'); // Add this line
+
+        startButton.addEventListener('click', async () => {
+            startButton.style.display = 'none'; // Hide the start button
+            header.style.display = 'none'; // Hide the header
+        });
+
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+    
+            // load the model and metadata
+            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+            // or files from your local hard drive
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+    
+            // Convenience function to setup a webcam
+            const flip = true; // whether to flip the webcam
+            webcam = new tmImage.Webcam(700, 700, flip); // width, height, flip
+            await webcam.setup(); // request access to the webcam
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+    
+            // append elements to the DOM
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+        }
+
+        async function loop() {
+            webcam.update(); // update the webcam frame
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
+    
+        // run the webcam image through the image model
+        async function predict() {
+            // predict can take in an image, video or canvas html element
+            const predictions = await model.predictTopK(webcam.canvas, 1);
+            labelContainer.innerText = predictions[0].className;
+        }
+    </script>
+</body>
+</html>
+
